@@ -1,0 +1,28 @@
+version : "2"
+
+services:
+
+ interlock:
+    image: ehazlett/interlock:ng
+    command: -D run --discovery etcd://$CONTROLLER_IP:12379 --discovery-tls-ca-cert /kvcerts/ca.pem --discovery-tls-cert /kvcerts/cert.pem --discovery-tls-key /kvcerts/key.pem
+    volumes:
+        - ucp-node-certs:/kvcerts
+        - ucp-node-certs:/certs
+        - nginx:/etc/conf
+ nginx:
+      image: nginx
+      command: nginx -g "daemon off;" -c /etc/conf/nginx.conf
+      ports:
+          - 80:80
+          - 443:443
+      labels:
+          - "interlock.ext.name=nginx"
+      volumes:
+          - nginx:/etc/conf
+      links:
+       - interlock
+
+volumes:
+  nginx:
+  ucp-node-certs:
+   external: true
