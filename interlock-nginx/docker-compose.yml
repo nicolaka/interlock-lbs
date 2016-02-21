@@ -20,7 +20,7 @@ services:
       volumes:
           - nginx:/etc/conf
       links:
-       - interlock
+          - interlock
 
 volumes:
   nginx:
