@@ -3,7 +3,7 @@ version : "2"
 services:
 
  interlock:
-    image: ehazlett/interlock:ng
+    image: ehazlett/interlock:1.0.0
     command: -D run --discovery etcd://$CONTROLLER_IP:12379 --discovery-tls-ca-cert /kvcerts/ca.pem --discovery-tls-cert /kvcerts/cert.pem --discovery-tls-key /kvcerts/key.pem
     volumes:
         - ucp-node-certs:/kvcerts
@@ -19,7 +19,7 @@ services:
           - "interlock.ext.name=nginx"
       volumes:
           - nginx:/etc/conf
-      links:
+      depends_on:
           - interlock
 
 volumes:
