@@ -9,6 +9,7 @@ services:
         - ucp-node-certs:/kvcerts
         - ucp-node-certs:/certs
         - nginx:/etc/conf
+    network_mode: "bridge"
  nginx:
       image: nginx
       command: nginx -g "daemon off;" -c /etc/conf/nginx.conf
@@ -21,6 +22,7 @@ services:
           - nginx:/etc/conf
       depends_on:
           - interlock
+      network_mode: "bridge"
 
 volumes:
   nginx:
