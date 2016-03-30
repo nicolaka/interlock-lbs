@@ -11,7 +11,7 @@ services:
         - ucp-node-certs:/kvcerts
         - haproxy:/usr/local/etc/haproxy
     network_mode: "bridge"
-
+    restart: always
   haproxy:
 
     image: haproxy
@@ -25,7 +25,7 @@ services:
     depends_on:
         - interlock
     network_mode: "bridge"
-
+    restart: always
 volumes:
   haproxy:
   ucp-node-certs:

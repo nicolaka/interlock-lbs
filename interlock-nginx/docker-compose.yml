@@ -10,6 +10,7 @@ services:
         - ucp-node-certs:/certs
         - nginx:/etc/conf
     network_mode: "bridge"
+    restart: always
  nginx:
       image: nginx
       command: nginx -g "daemon off;" -c /etc/conf/nginx.conf
@@ -23,7 +24,7 @@ services:
       depends_on:
           - interlock
       network_mode: "bridge"
-
+      restart: always
 volumes:
   nginx:
   ucp-node-certs:
