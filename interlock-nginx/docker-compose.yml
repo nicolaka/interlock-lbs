@@ -11,6 +11,8 @@ services:
         - nginx:/etc/conf
     network_mode: "bridge"
     restart: always
+    environment:
+       - affinity:container!=*_interlock_*
  nginx:
       image: nginx
       command: nginx -g "daemon off;" -c /etc/conf/nginx.conf
@@ -25,6 +27,8 @@ services:
           - interlock
       network_mode: "bridge"
       restart: always
+      environment:
+       - affinity:container!=*_nginx_*
 volumes:
   nginx:
   ucp-node-certs:
