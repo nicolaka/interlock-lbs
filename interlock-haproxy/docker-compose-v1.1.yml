@@ -1,0 +1,24 @@
+version : "2"
+
+services:
+ interlock:
+    image: ehazlett/interlock:1.1.0
+    command: run -c /bin/config.toml
+    volumes:
+        - ucp-node-certs:/certs
+        - ./config.toml:/bin/config.toml
+        - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+ haproxy:
+    image: haproxy:latest
+    ports:
+        - 80:80
+    labels:
+        - "interlock.ext.name=haproxy"
+    restart: always
+    depends_on:
+        - interlock
+volumes:
+  ucp-node-certs:
+   external: true
